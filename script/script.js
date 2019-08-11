@@ -1,10 +1,5 @@
 'use strict';
 
-let operation = null;
-let argument = null;
-let actionWithArguments = null;
-
-
 let operationType = chooseOperation();
 let firstArgument = chooseArgument();
 let secondArgument = chooseArgument();
@@ -13,6 +8,7 @@ showResult(result);
 
 
 function chooseOperation() {
+    let operation = null;
     do {
         operation = prompt('Choose type of operation (add, sub, div, mult)', 'add');
     }
@@ -26,6 +22,7 @@ function chooseOperation() {
 }
 
 function chooseArgument() {
+    let argument = null;
     do {
         argument = +prompt('Choose argument: ', '0');
     }
@@ -36,6 +33,7 @@ function chooseArgument() {
 }
 
 function operationWithArgumets(firstArgument, secondArgument, operationType) {
+    let actionWithArguments = null;
     switch (operationType) {
         case 'add':
             actionWithArguments = firstArgument + secondArgument;
