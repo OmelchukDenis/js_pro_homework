@@ -1,4 +1,6 @@
 'use strict'
+const MIN = 1;
+const MAX = 10;
 
 repeatAction();
 
@@ -14,19 +16,17 @@ function repeatAction() {
     }
 
     function chooseNumber() {
-        let chooseUserNumber = null;
-        const min = 1;
-        const max = 10;
+        let userNumber = null;
 
         do {
-            chooseUserNumber = +prompt('Please, choose number from 1 to 10:', '1');
+            userNumber = +prompt('Please, choose number from ' + MIN + ' to ' + MAX + ' :', '1');
         } while (
-            isNaN(chooseUserNumber) ||
-            chooseUserNumber < min ||
-            chooseUserNumber > max
+            isNaN(userNumber) ||
+            userNumber < MIN ||
+            userNumber > MAX
         )
 
-        return chooseUserNumber;
+        return userNumber;
     }
 
     function showMultiplicationTable(selectedNumber) {
