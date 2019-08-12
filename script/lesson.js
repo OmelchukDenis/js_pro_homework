@@ -1,10 +1,41 @@
 'use strict'
 
-function concatenate(str1, str2){
-    return String(str1) + String(str2);
+// function progresion(value){
+//     let progress = 0;
+//     for(let i=value; i > 0; i--){
+//         progress += i;
+//     }
+//     return progress;
+// }
+
+// recursion
+// function progresion(value){
+//     return value == 1 ? value : value + progresion(value - 1);
+// }
+
+// const result = progresion(0)
+// console.log(result)
+
+
+const obj1 = {
+    a: {
+        a: {
+            a: {
+                a: 23
+            }
+        }
+    }
 }
 
-let result = concatenate(45, 55);
-result = concatenate ('Result is ', result);
+const obj2 = {
+    a: {
+        a: 4
+    }
+}
 
-console.error('result', result);
+getA(obj1);
+getA(obj2);
+
+function getA (value){
+    return (typeof value == 'object') ? getA(value.a) : console.log(value);
+}
