@@ -1,19 +1,16 @@
 'use strict'
 
 let userStr = prompt('Please write your str', 'Hello world');
-let userLetter1 = isCorrect();
-let userLetter2 = isCorrect();
-findAndReplace();
-
-// let chooseLetterA = prompt('Choose letter for replace', 'a');
-// isCorrect(chooseLetterA);
-// let chooseLetterB = prompt('Choose letter for replace', 'b');
-// isCorrect(chooseLetterB);
+userStr = userStr.toLowerCase();
+const l = 'l';
+const z = 'z';
+let userLetter1 = isCorrect(l);
+let userLetter2 = isCorrect(z);
 
 function isCorrect(letter){
     let userLetter = null;
     do{
-        userLetter = prompt('Choose letter for ' + letter, 'l');
+        userLetter = prompt('Choose letter for ', letter);
     }
     while(
         userLetter.length > 1 ||
@@ -21,13 +18,13 @@ function isCorrect(letter){
     )
     return userLetter;
 }
-function findAndReplace(){
-    let c = 0;
-    c = userStr.length;
-    for(let i = 0; i<=c; i++){
-        String(userStr)
-    }
-    console.log(c);
+
+let newStr = replaceAll(userStr, userLetter1, userLetter2);
+
+function replaceAll(userStr, userLetter1, userLetter2){
+    let c = null;
+    c = userStr.replace(userLetter1, userLetter2);
+    return c.indexOf(userLetter1) >= 0 ? replaceAll(c, userLetter1, userLetter2) : c;
 }
 
-console.log(userLetter1, userLetter2); 
+console.log(newStr);
