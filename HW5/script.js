@@ -1,15 +1,15 @@
 'use strict'
 
-const MESSAGEFORUSERSTR = 'Please write your str';
-const EXAMPLEFORUSERSTR = 'Hello world'
-const MESSAGEFORSEARCH = 'Choose letter for search';
-const EXAMPLELETERFORSEARCH = 'l';
-const MESSAGEFORREPLACE = 'Choose letter for replace';
-const EXAMPLELETERFORREPLACE = 'z';
+const MESSAGE_FOR_USER_STR = 'Please write your str';
+const EXAMPLE_FOR_USER_STR = 'Hello world'
+const MESSAGE_FOR_SEARCH = 'Choose letter for search';
+const EXAMPLE_LETER_FOR_SEARCH = 'l';
+const MESSAGE_FOR_REPLACE = 'Choose letter for replace';
+const EXAMPLE_LETER_FOR_REPLACE = 'z';
 
 let userStr = checkUserStr();
-let userLetter1 = checkUserLetter(MESSAGEFORSEARCH, EXAMPLELETERFORSEARCH);
-let userLetter2 = checkUserLetter(MESSAGEFORREPLACE, EXAMPLELETERFORREPLACE);
+let userLetter1 = checkUserLetter(MESSAGE_FOR_SEARCH, EXAMPLE_LETER_FOR_SEARCH);
+let userLetter2 = checkUserLetter(MESSAGE_FOR_REPLACE, EXAMPLE_LETER_FOR_REPLACE);
 let newStr = replaceAll(userStr, userLetter1, userLetter2);
 
 alert('Your old str = ' + userStr + '\nYour new str = ' + newStr);
@@ -18,7 +18,7 @@ console.log('Your old str = ' + userStr + '\nYour new str = ' + newStr);
 function checkUserStr() {
     let checkedStr;
     do {
-        checkedStr = prompt(MESSAGEFORUSERSTR, EXAMPLEFORUSERSTR);
+        checkedStr = prompt(MESSAGE_FOR_USER_STR, EXAMPLE_FOR_USER_STR);
     }
     while (
         checkedStr == null ||
