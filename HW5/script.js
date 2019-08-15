@@ -1,13 +1,15 @@
 'use strict'
 
-const messageLetter1 = 'Choose letter for search';
-const messageLetter2 = 'Choose letter for replace';
-const exampleLetter1 = 'l';
-const exampleLetter2 = 'z';
+const MESSAGEFORUSERSTR = 'Please write your str';
+const EXAMPLEFORUSERSTR = 'Hello world'
+const MESSAGEFORSEARCH = 'Choose letter for search';
+const EXAMPLELETERFORSEARCH = 'l';
+const MESSAGEFORREPLACE = 'Choose letter for replace';
+const EXAMPLELETERFORREPLACE = 'z';
 
 let userStr = checkUserStr();
-let userLetter1 = checkUserLetter(messageLetter1, exampleLetter1);
-let userLetter2 = checkUserLetter(messageLetter2, exampleLetter2);
+let userLetter1 = checkUserLetter(MESSAGEFORSEARCH, EXAMPLELETERFORSEARCH);
+let userLetter2 = checkUserLetter(MESSAGEFORREPLACE, EXAMPLELETERFORREPLACE);
 let newStr = replaceAll(userStr, userLetter1, userLetter2);
 
 alert('Your old str = ' + userStr + '\nYour new str = ' + newStr);
@@ -16,7 +18,7 @@ console.log('Your old str = ' + userStr + '\nYour new str = ' + newStr);
 function checkUserStr() {
     let checkedStr;
     do {
-        checkedStr = prompt('Please write your str', 'Hello world');
+        checkedStr = prompt(MESSAGEFORUSERSTR, EXAMPLEFORUSERSTR);
     }
     while (
         checkedStr == null ||
@@ -39,7 +41,6 @@ function checkUserLetter(message, letter) {
 }
 
 function replaceAll(userStr, userLetter1, userLetter2) {
-    let resultStr = null;
-    resultStr = userStr.replace(userLetter1, userLetter2);
+    let resultStr = userStr.replace(userLetter1, userLetter2);
     return resultStr.indexOf(userLetter1) >= 0 ? replaceAll(resultStr, userLetter1, userLetter2) : resultStr;
 }
