@@ -1,46 +1,35 @@
 'use strict'
+const MIN = 0;
+const MAX = 10;
 
-const MESSAGE_FOR_USER_STR = 'Please write your str';
-const EXAMPLE_FOR_USER_STR = 'Hello world'
-const MESSAGE_FOR_SEARCH = 'Choose letter for search';
-const EXAMPLE_LETER_FOR_SEARCH = 'l';
-const MESSAGE_FOR_REPLACE = 'Choose letter for replace';
-const EXAMPLE_LETER_FOR_REPLACE = 'z';
+let userNumber = chooseNumber();
+let randomNumber = getRandomNumber(MIN, MAX);
+let generalScore = getCompresionResult(userNumber, randomNumber);
 
-let userStr = checkUserStr();
-let userLetter1 = checkUserLetter(MESSAGE_FOR_SEARCH, EXAMPLE_LETER_FOR_SEARCH);
-let userLetter2 = checkUserLetter(MESSAGE_FOR_REPLACE, EXAMPLE_LETER_FOR_REPLACE);
-let newStr = replaceAll(userStr, userLetter1, userLetter2);
+console.log(generalScore);
 
-alert('Your old str = ' + userStr + '\nYour new str = ' + newStr);
-console.log('Your old str = ' + userStr + '\nYour new str = ' + newStr);
-
-function checkUserStr() {
-    let checkedStr;
+function chooseNumber() {
+    let checkedNumber = null;
     do {
-        checkedStr = prompt(MESSAGE_FOR_USER_STR, EXAMPLE_FOR_USER_STR);
+        checkedNumber = prompt('Please write number from 0 to 10', '5');
     }
     while (
-        checkedStr == null ||
-        checkedStr.length == 0
+        isNaN(checkedNumber) ||
+        checkedNumber == ' ' ||
+        checkedNumber > 10 ||
+        checkedNumber < 0
     )
-    return checkedStr;
+    return checkedNumber;
 }
 
-function checkUserLetter(message, letter) {
-    let userLetter = null;
-    do {
-        userLetter = prompt(message, letter);
+function getRandomNumber(min, max){
+    return Math.round(min + Math.random() * (max - min));
+}
+
+function getCompresionResult(userNumber, randomNumber){
+    let result = 0;
+    if(userNumber == randomNumber){
+        result += 10;
     }
-    while (
-        userLetter == null ||
-        userLetter.length > 1 ||
-        userLetter.length == 0
-    )
-    return userLetter;
-}
-
-function replaceAll(userStr, userLetter1, userLetter2) {
-    let resultStr = userStr.replace(userLetter1, userLetter2);
-    return resultStr.indexOf(userLetter1) >= 0 ? replaceAll(resultStr, userLetter1, userLetter2) : resultStr;
+    return result;
 }
