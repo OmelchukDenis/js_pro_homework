@@ -1,23 +1,30 @@
 'use strict'
+
 const MIN = 0;
 const MAX = 10;
 
-let userNumber = chooseNumber();
-let randomNumber = getRandomNumber(MIN, MAX);
-let generalScore = getCompresionResult(userNumber, randomNumber);
+let generalScore = 0;
 
-console.log(generalScore);
+runGame();
+
+function runGame(){
+    let userNumber = chooseNumber();
+    let randomNumber = getRandomNumber(MIN, MAX);
+    generalScore = getCompresionResult(userNumber, randomNumber);
+    checkContinueGame(generalScore);
+}
 
 function chooseNumber() {
-    let checkedNumber = null;
+    let checkedNumber;
     do {
         checkedNumber = prompt('Please write number from 0 to 10', '5');
     }
     while (
         isNaN(checkedNumber) ||
+        checkedNumber == null ||
         checkedNumber == ' ' ||
-        checkedNumber > 10 ||
-        checkedNumber < 0
+        checkedNumber > MAX ||
+        checkedNumber < MIN
     )
     return checkedNumber;
 }
@@ -27,9 +34,13 @@ function getRandomNumber(min, max){
 }
 
 function getCompresionResult(userNumber, randomNumber){
-    let result = 0;
     if(userNumber == randomNumber){
-        result += 10;
+        alert('Congratulation, you are right, it is number ' + userNumber);
+        generalScore += 10;
     }
-    return result;
+    return generalScore;
+}
+
+function checkContinueGame(generalScore){
+    confirm('So your general score: ' + generalScore + '.\nAre you want continue?') ? runGame() : alert('If you want play again, reload page. Bye.');
 }

@@ -2,6 +2,7 @@
 
 let userNumber = chooseNumber();
 let countEvenNumber = checkCountEvenNumber(userNumber);
+console.log('In your number: ' + userNumber + '. Counter even number: ' + countEvenNumber);
 
 function chooseNumber() {
     let checkedNumber = null;
@@ -25,6 +26,4 @@ function checkCountEvenNumber(userNumber){
     }
     return counter;
 }
-
-console.log('In your number: ' + userNumber + '. Counter even number: ' + countEvenNumber);
 
