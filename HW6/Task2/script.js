@@ -17,7 +17,7 @@ function runGame(){
 function chooseNumber() {
     let checkedNumber;
     do {
-        checkedNumber = prompt('Please write number from 0 to 10', '5');
+        checkedNumber = prompt('Please write number from ' + MIN + ' to ' + MAX, '5');
     }
     while (
         isNaN(checkedNumber) ||
