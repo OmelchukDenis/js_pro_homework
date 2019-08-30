@@ -11,9 +11,9 @@ const ELEM_MAX = document.getElementById('max');
 let userName = getUserStr(QUESTION_FOR_NAME, USER_NAME_EXAMPLE)
 let userNumber = getUserStr(QUESTION_FOR_STR, USER_STR_EXAMPLE);
 let userNumberArray = userNumber.split(',').map(Number).sort(compareNumber);
-const lastIndex = userNumberArray.length - 1;
+const LAST_INDEX = userNumberArray.length - 1;
 
-if (isNaN(userNumberArray[lastIndex])){
+if (isNaN(userNumberArray[LAST_INDEX])){
     renderErrorPage()
 } else {
     renderPage()
@@ -34,7 +34,7 @@ function getUserStr(question, example) {
 function renderPage(){
     ELEM_GREETING.innerHTML = userName;
     ELEM_MIN.innerHTML = userNumberArray[0];
-    ELEM_MAX.innerHTML = userNumberArray[lastIndex];
+    ELEM_MAX.innerHTML = userNumberArray[LAST_INDEX];
 }
 
 function renderErrorPage(){
