@@ -1,0 +1,93 @@
+$main_color: rgba(61,90,254,1);
+$done_color: rgba(104,255,88,1);
+$bg_color: rgba(0,0,0,.1);
+
+body{
+    font-size: 1.2rem;
+    background: $bg_color;
+}
+
+.toDoBlock {
+    display: flex;
+    justify-content: center;
+    div {
+        width: 500px;
+    }
+}
+
+.taskList{
+    list-style-type: none;
+    padding: 0;
+    & li{
+        border-bottom: 1px solid $main_color;
+        margin-bottom: 5px;
+        cursor: pointer;
+        position: relative;
+        transition: all 200ms;
+        &:hover{
+            background: rgba($done_color, .5);
+            border-bottom-color: rgba($done_color, .75);
+        }
+        &.doneTask {
+            background: $done_color;
+            border-bottom: 1px solid $done_color;
+            &:hover{
+                background: rgba($done_color, .75);
+            }
+            &::after{
+                content: 'Done';
+                opacity: .25;
+                display: block;
+                position: absolute;
+                left: -50px;
+                top: 0px;
+            }
+        }
+        & b{
+            position: absolute;
+            left: 100%;
+            top: 0;
+            padding-left: 10px;
+            &:hover{
+                color: red;
+                opacity: .75;
+            }
+        }
+    }
+}
+.taskTitle{
+    border:none;
+    // border-bottom: 1px solid red;
+    font-size: 1.2rem;
+    border-radius: 28px;
+    padding-left: 12px;
+    padding-right: 12px;
+    width: 64%;
+    border: 1px solid transparent;
+    transition: all 500ms;
+    &:hover{
+        border-color: rgba($main_color, .5);
+    }
+    &:focus{
+        outline: none;
+        border-color: $main_color;
+    }
+}
+.addTask{
+    background: $main_color;
+    color: white;
+    font-size: 1.1rem;
+    cursor: pointer;
+    border-radius: 25px;
+    padding: 2px 10px;
+    outline: none;
+    transition: all 350ms;
+    &:hover{
+        background: rgba($main_color, .75)
+    }
+}
+
+
+.error {
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+}

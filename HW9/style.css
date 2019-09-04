@@ -1,6 +1,100 @@
-.doneTask{
-    background: green;
-};
-.error{
-    border: 1px solid red;
+body {
+  font-size: 1.2rem;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.toDoBlock {
+  display: flex;
+  justify-content: center;
+}
+
+.toDoBlock div {
+  width: 500px;
+}
+
+.taskList {
+  list-style-type: none;
+  padding: 0;
+}
+
+.taskList li {
+  border-bottom: 1px solid #3d5afe;
+  margin-bottom: 5px;
+  cursor: pointer;
+  position: relative;
+  transition: all 200ms;
+}
+
+.taskList li:hover {
+  background: rgba(104, 255, 88, 0.5);
+  border-bottom-color: rgba(104, 255, 88, 0.75);
+}
+
+.taskList li.doneTask {
+  background: #68ff58;
+  border-bottom: 1px solid #68ff58;
+}
+
+.taskList li.doneTask:hover {
+  background: rgba(104, 255, 88, 0.75);
+}
+
+.taskList li.doneTask::after {
+  content: 'Done';
+  opacity: .25;
+  display: block;
+  position: absolute;
+  left: -50px;
+  top: 0px;
+}
+
+.taskList li b {
+  position: absolute;
+  left: 100%;
+  top: 0;
+  padding-left: 10px;
+}
+
+.taskList li b:hover {
+  color: red;
+  opacity: .75;
+}
+
+.taskTitle {
+  border: none;
+  font-size: 1.2rem;
+  border-radius: 28px;
+  padding-left: 12px;
+  padding-right: 12px;
+  width: 64%;
+  border: 1px solid transparent;
+  transition: all 500ms;
+}
+
+.taskTitle:hover {
+  border-color: rgba(61, 90, 254, 0.5);
+}
+
+.taskTitle:focus {
+  outline: none;
+  border-color: #3d5afe;
+}
+
+.addTask {
+  background: #3d5afe;
+  color: white;
+  font-size: 1.1rem;
+  cursor: pointer;
+  border-radius: 25px;
+  padding: 2px 10px;
+  outline: none;
+  transition: all 350ms;
+}
+
+.addTask:hover {
+  background: rgba(61, 90, 254, 0.75);
+}
+
+.error {
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
 }

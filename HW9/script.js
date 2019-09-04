@@ -3,28 +3,28 @@
 const itemTemplate = document.getElementById('itemTemplate').innerHTML;
 const toDoList = document.getElementById('toDoList');
 const taskTitle = document.getElementById('taskTitle');
-const addBtn = document.getElementById('addTask');
+const classError = 'error';
 
+document.getElementById('submitTask').addEventListener('submit', onFormSubmit);
 toDoList.addEventListener('click', onToDoListClick);
-addBtn.addEventListener('click', onBtnClick);
 
-
-function onBtnClick(){
+function onFormSubmit(e){
+    e.preventDefault();
     addNewTask();
 }
 
 function addNewTask(){
-    const taskValue = getUserTask();
-    toDoList.innerHTML += generateTask(taskValue.value);
-    taskTitle.placeholder = '';
-    taskTitle.value = '';
-}
-function getUserTask(){
-    if (taskTitle.value == ''){
-        taskTitle.placeholder = 'error';
-        taskTitle.classList('error');
+    if(taskTitle.value.trim() !== ''){
+        deleteErrorClass(classError);
+        toDoList.innerHTML += generateTask(taskTitle.value);
+        taskTitle.placeholder = '';
+        taskTitle.value = '';
+    }else{
+        taskTitle.value = '';
+        taskTitle.placeholder = 'Fill the input';
+        taskTitle.classList.add(classError);        
     }
-    return taskTitle;
+    
 }
 
 function generateTask(value){
@@ -45,4 +45,10 @@ function removeLi(e){
 
 function changeLiClass(e){
     e.target.classList.toggle('doneTask');
+}
+
+function deleteErrorClass(classError){
+    if(taskTitle.classList.contains(classError)){
+        taskTitle.classList.remove(classError);
+    }
 }
