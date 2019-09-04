@@ -15,14 +15,14 @@ function onFormSubmit(e) {
 
 function addNewTask() {
     if (taskTitle.value.trim() !== '') {
-        deleteErrorClass(classError);
         toDoList.innerHTML += generateTask(taskTitle.value);
         taskTitle.placeholder = '';
         taskTitle.value = '';
+        deleteClass(taskTitle, classError);
     } else {
         taskTitle.value = '';
         taskTitle.placeholder = 'Fill the input';
-        taskTitle.classList.add(classError);
+        addClass(taskTitle, classError);
     }
 
 }
@@ -47,8 +47,11 @@ function changeLiClass(e) {
     e.target.classList.toggle('doneTask');
 }
 
-function deleteErrorClass(classError) {
-    if (taskTitle.classList.contains(classError)) {
-        taskTitle.classList.remove(classError);
+function deleteClass(tagName, myClass) {
+    if (tagName.classList.contains(myClass)) {
+        tagName.classList.remove(myClass);
     }
+}
+function addClass(tagName, myClass){
+    tagName.classList.add(myClass);
 }
