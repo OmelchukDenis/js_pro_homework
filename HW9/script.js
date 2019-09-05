@@ -1,11 +1,14 @@
 'use strict'
 
+const CLASS_ERROR = 'error';
+const CLASS_ITEM_LI = 'itemLi';
+const CLASS_ITEM_DELETE = 'itemDelete';
+
 const itemTemplate = document.getElementById('itemTemplate').innerHTML;
 const toDoList = document.getElementById('toDoList');
 const taskTitle = document.getElementById('taskTitle');
-const classError = 'error';
 
-document.getElementById('submitTask').addEventListener('submit', onFormSubmit);
+document.getElementById('newTaskForm').addEventListener('submit', onFormSubmit);
 toDoList.addEventListener('click', onToDoListClick);
 
 function onFormSubmit(e) {
@@ -16,13 +19,12 @@ function onFormSubmit(e) {
 function addNewTask() {
     if (taskTitle.value.trim() !== '') {
         toDoList.innerHTML += generateTask(taskTitle.value);
-        taskTitle.placeholder = '';
-        taskTitle.value = '';
-        deleteClass(taskTitle, classError);
+        clearInput();
+        deleteClass(taskTitle, CLASS_ERROR);
     } else {
         taskTitle.value = '';
         taskTitle.placeholder = 'Fill the input';
-        addClass(taskTitle, classError);
+        addClass(taskTitle, CLASS_ERROR);
     }
 
 }
@@ -32,26 +34,31 @@ function generateTask(value) {
 }
 
 function onToDoListClick(e) {
-    if (e.target.tagName == 'B') {
-        removeLi(e);
-    } else if (e.target.tagName == 'LI') {
-        changeLiClass(e);
+    const tapElement = e.target;
+    if (tapElement.classList.contains(CLASS_ITEM_DELETE)) {
+        removeElement(tapElement);
+    } else if (tapElement.classList.contains(CLASS_ITEM_LI)) {
+        changeElementClass(tapElement);
     }
 }
 
-function removeLi(e) {
-    e.target.parentElement.remove();
+function removeElement(tapElement) {
+    tapElement.parentElement.remove();
 }
 
-function changeLiClass(e) {
-    e.target.classList.toggle('doneTask');
+function changeElementClass(tapElement) {
+    tapElement.classList.toggle('doneTask');
 }
 
 function deleteClass(element, className) {
-    if (element.classList.contains(className)) {
-        element.classList.remove(className);
-    }
+    element.classList.remove(className);
 }
+
 function addClass(element, className){
     element.classList.add(className);
+}
+
+function clearInput(){
+    taskTitle.placeholder = '';
+    taskTitle.value = '';
 }
