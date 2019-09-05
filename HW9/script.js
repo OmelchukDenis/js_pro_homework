@@ -47,11 +47,11 @@ function changeLiClass(e) {
     e.target.classList.toggle('doneTask');
 }
 
-function deleteClass(Element, className) {
-    if (Element.classList.contains(className)) {
-        Element.classList.remove(className);
+function deleteClass(element, className) {
+    if (element.classList.contains(className)) {
+        element.classList.remove(className);
     }
 }
-function addClass(Element, className){
-    Element.classList.add(className);
+function addClass(element, className){
+    element.classList.add(className);
 }
