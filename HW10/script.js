@@ -2,8 +2,8 @@
 
 const calculator = createCalculator(10); 
 
-function createCalculator(number = 0){
-    let result = number;
+function createCalculator(result = 0){
+    // let result = number;
     return {
         add: (arg) => result += arg,
         sub: (arg) => result -= arg,
