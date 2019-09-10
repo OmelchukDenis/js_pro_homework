@@ -29,5 +29,5 @@ function averageMarkGroup(){
         total += students[i].averageMark();
     }
     const averageMarkGroup = total / studentsArr;
-    console.log(averageMarkGroup);
+    console.log(`Average mark in group: ${averageMarkGroup}`);
 }
