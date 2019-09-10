@@ -1,18 +1,21 @@
 'use strict'
 
-function Student(name, arr){
+function Student(name, marks){
     this.name = name;
-    this.arr = arr;
+    this.marks = marks;
 }
 
-Student.prototype.average = function(){
-    let c = this.arr;
-    let total = 0;
-    for(let i = 0; i <= c.length-1; i++){
-        total += c[i];
+Student.prototype.averageMark = function(){
+    let arrLenght = this.marks.length;
+    let totalSum = 0;
+    for(let i = 0; i <= arrLenght - 1; i++){
+        totalSum += this.marks[i];
     }
-    console.log(total / c.length);
+    const averageMark = totalSum / arrLenght;
+    return averageMark;
 }
 
-const student1 = new Student('Denis', [10, 20, 300, 1, 4, 6]);
-const student2 = new Student('LOH', [100, 20, 0, 1, 40, 6]);
+const students = [ 
+    new Student('Student 1', [10,9,8,0,10]), // имя, оценки
+    new Student('Student 12', [10,0,8,0,3,4])
+];
