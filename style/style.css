@@ -2,7 +2,10 @@ body {
   background: #d6d6d6;
 }
 
-.click {
+.clickable-element {
+  background: blue;
+}
+
+.clickable-element-clicked {
   background: red;
-  color: white;
 }

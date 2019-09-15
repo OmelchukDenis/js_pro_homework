@@ -7,10 +7,11 @@ function Student(name, marks){
 
 Student.prototype.averageMark = function(){
     let arrLenght = this.marks.length;
-    let totalSum = 0;
-    for(let i = 0; i <= arrLenght - 1; i++){
-        totalSum += this.marks[i];
-    }
+    let totalSum = this.marks.reduce((sum, current) => sum + current, 0);
+    // reduce!!!!
+    // for(let i = 0; i <= arrLenght - 1; i++){
+    //     totalSum += this.marks[i];
+    // }
     const averageMark = totalSum / arrLenght;
     return averageMark;
 }
