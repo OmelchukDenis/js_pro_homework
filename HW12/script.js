@@ -36,30 +36,30 @@ Hamburger.TOPPING_SAUCE = {
     calories : 5
 }
 
-Hamburger.prototype.addTopping = function(sauceType){
-    if(this.hasOwnProperty('newTopping')){
-        this.newTopping = {
-            price: this.newTopping.price + sauceType.price,
-            calories: this.newTopping.calories + sauceType.calories 
+Hamburger.prototype.addTopping = function(topping){
+    if(this.hasOwnProperty('generalTopping')){
+        this.generalTopping = {
+            price: this.generalTopping.price + topping.price,
+            calories: this.generalTopping.calories + topping.calories 
         }
     }
     else{
-        this.newTopping = sauceType;
+        this.generalTopping = topping;
     }
 }
 
 Hamburger.prototype.calculateCalories = function(){
     let generalCalories = this.size.calories + this.stuffing.calories;
-    if(this.hasOwnProperty('newTopping')){
-        generalCalories += this.newTopping.calories
+    if(this.hasOwnProperty('generalTopping')){
+        generalCalories += this.generalTopping.calories
     }
     return generalCalories;
 }
 
 Hamburger.prototype.calculatePrice = function(){
     let generalPrice = this.size.price + this.stuffing.price;
-    if(this.hasOwnProperty('newTopping')){
-        generalPrice += this.newTopping.price
+    if(this.hasOwnProperty('generalTopping')){
+        generalPrice += this.generalTopping.price
     }
     return generalPrice;
 }
