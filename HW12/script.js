@@ -3,6 +3,7 @@
 function Hamburger(size, stuffing){
     this.size = size;
     this.stuffing = stuffing;
+    this.generalTopping = [];
 }
 
 Hamburger.SIZE_SMALL = {
@@ -37,29 +38,21 @@ Hamburger.TOPPING_SAUCE = {
 }
 
 Hamburger.prototype.addTopping = function(topping){
-    if(this.hasOwnProperty('generalTopping')){
-        this.generalTopping = {
-            price: this.generalTopping.price + topping.price,
-            calories: this.generalTopping.calories + topping.calories 
-        }
-    }
-    else{
-        this.generalTopping = topping;
-    }
+    this.generalTopping.push(topping);
 }
 
 Hamburger.prototype.calculateCalories = function(){
     let generalCalories = this.size.calories + this.stuffing.calories;
-    if(this.hasOwnProperty('generalTopping')){
-        generalCalories += this.generalTopping.calories
+    for(let i in this.generalTopping){
+        generalCalories += this.generalTopping[i].calories
     }
     return generalCalories;
 }
 
 Hamburger.prototype.calculatePrice = function(){
     let generalPrice = this.size.price + this.stuffing.price;
-    if(this.hasOwnProperty('generalTopping')){
-        generalPrice += this.generalTopping.price
+    for(let i in this.generalTopping){
+        generalPrice += this.generalTopping[i].price
     }
     return generalPrice;
 }
