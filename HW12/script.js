@@ -43,17 +43,13 @@ Hamburger.prototype.addTopping = function(topping){
 
 Hamburger.prototype.calculateCalories = function(){
     let generalCalories = this.size.calories + this.stuffing.calories;
-    this.generalTopping.forEach(function(elem){
-        generalCalories += elem.calories;
-    })
+    this.generalTopping.forEach( elem => generalCalories += elem.calories);
     return generalCalories;
 }
 
 Hamburger.prototype.calculatePrice = function(){
     let generalPrice = this.size.price + this.stuffing.price;
-    this.generalTopping.forEach(function(elem){
-        generalPrice += elem.price;
-    })
+    this.generalTopping.forEach( elem => generalPrice += elem.price )
     return generalPrice;
 }
 
@@ -69,5 +65,6 @@ console.log("Calories:" + hamburger.calculateCalories());
 console.log("Price:" + hamburger.calculatePrice());
 // я тут передумал и решил добавить еще приправу
 hamburger.addTopping(Hamburger.TOPPING_SAUCE);
+hamburger.addTopping(Hamburger.TOPPING_MAYO);
 // А сколько теперь стоит?
 console.log("Price with sauce:" + hamburger.calculatePrice(), hamburger.calculateCalories());
