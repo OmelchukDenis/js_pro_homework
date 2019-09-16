@@ -43,17 +43,17 @@ Hamburger.prototype.addTopping = function(topping){
 
 Hamburger.prototype.calculateCalories = function(){
     let generalCalories = this.size.calories + this.stuffing.calories;
-    for(let i in this.generalTopping){
-        generalCalories += this.generalTopping[i].calories
-    }
+    this.generalTopping.forEach(function(elem){
+        generalCalories += elem.calories;
+    })
     return generalCalories;
 }
 
 Hamburger.prototype.calculatePrice = function(){
     let generalPrice = this.size.price + this.stuffing.price;
-    for(let i in this.generalTopping){
-        generalPrice += this.generalTopping[i].price
-    }
+    this.generalTopping.forEach(function(elem){
+        generalPrice += elem.price;
+    })
     return generalPrice;
 }
 
