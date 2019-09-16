@@ -5,33 +5,6 @@ function Hamburger(size, stuffing){
     this.stuffing = stuffing;
 }
 
-Hamburger.prototype.addTopping = function(sauceType){
-    this.newTopping = sauceType;
-}
-
-Hamburger.prototype.calculateCalories = function(){
-    let allCalories = 0;
-
-    for (let i in this) {
-        if(typeof(this[i]) === 'object'){
-            allCalories += this[i].calories
-        }
-    }
-
-    return allCalories;
-}
-Hamburger.prototype.calculatePrice = function(){
-    let allPrice = 0;
-
-    for (let i in this) {
-        if(typeof(this[i]) === 'object'){
-            allPrice += this[i].price
-        }
-    }
-
-    return allPrice;
-}
-
 Hamburger.SIZE_SMALL = {
     price : 50,
     calories : 20
@@ -63,6 +36,36 @@ Hamburger.TOPPING_SAUCE = {
     calories : 5
 }
 
+Hamburger.prototype.addTopping = function(sauceType){
+    if(this.hasOwnProperty('newTopping')){
+        this.newTopping = {
+            price: this.newTopping.price + sauceType.price,
+            calories: this.newTopping.calories + sauceType.calories 
+        }
+    }
+    else{
+        this.newTopping = sauceType;
+    }
+}
+
+Hamburger.prototype.calculateCalories = function(){
+    let generalCalories = this.size.calories + this.stuffing.calories;
+    if(this.hasOwnProperty('newTopping')){
+        generalCalories += this.newTopping.calories
+    }
+    return generalCalories;
+}
+
+Hamburger.prototype.calculatePrice = function(){
+    let generalPrice = this.size.price + this.stuffing.price;
+    if(this.hasOwnProperty('newTopping')){
+        generalPrice += this.newTopping.price
+    }
+    return generalPrice;
+}
+
+
+
 // маленький гамбургер с начинкой из сыра
 const hamburger = new Hamburger(Hamburger.SIZE_SMALL, Hamburger.STUFFING_CHEESE);
 // добавка из майонеза
@@ -74,7 +77,4 @@ console.log("Price:" + hamburger.calculatePrice());
 // я тут передумал и решил добавить еще приправу
 hamburger.addTopping(Hamburger.TOPPING_SAUCE);
 // А сколько теперь стоит?
-console.log("Price with sauce:" + hamburger.calculatePrice());
-hamburger.addTopping(Hamburger.TOPPING_MAYO);
-// А сколько теперь стоит?
-console.log("Price with sauce:" + hamburger.calculatePrice());
+console.log("Price with sauce:" + hamburger.calculatePrice(), hamburger.calculateCalories());
