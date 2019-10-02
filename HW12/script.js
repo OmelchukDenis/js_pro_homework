@@ -53,8 +53,6 @@ Hamburger.prototype.calculatePrice = function(){
     return generalPrice;
 }
 
-
-
 // маленький гамбургер с начинкой из сыра
 const hamburger = new Hamburger(Hamburger.SIZE_SMALL, Hamburger.STUFFING_CHEESE);
 // добавка из майонеза
@@ -66,4 +64,4 @@ console.log("Price:" + hamburger.calculatePrice());
 // я тут передумал и решил добавить еще приправу
 hamburger.addTopping(Hamburger.TOPPING_SAUCE);
 // А сколько теперь стоит?
-console.log("Price with sauce:" + hamburger.calculatePrice(), hamburger.calculateCalories());
+console.log("Price with sauce:" + hamburger.calculatePrice());

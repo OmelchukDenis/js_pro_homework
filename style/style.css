@@ -2,10 +2,20 @@ body {
   background: #d6d6d6;
 }
 
-.clickable-element {
-  background: blue;
+.my-accordeon-container .title {
+  font-size: 1.3rem;
+  border: 1px solid black;
+  padding: 10px;
+  cursor: pointer;
 }
 
-.clickable-element-clicked {
-  background: red;
+.my-accordeon-container .body {
+  display: none;
+  padding: 20px;
+  font-size: 1rem;
+  background: rgba(20, 20, 20, 0.1);
+}
+
+.my-accordeon-container .active .body {
+  display: block;
 }
