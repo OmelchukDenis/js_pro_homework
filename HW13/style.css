@@ -1,1 +1,22 @@
-null
+.prev, .next {
+  height: 30px;
+  background: red;
+  cursor: pointer;
+  float: left;
+}
+
+.next {
+  background: blue;
+}
+
+#container li {
+  display: none;
+}
+
+#container li img {
+  width: 30%;
+}
+
+#container li.active {
+  display: block;
+}

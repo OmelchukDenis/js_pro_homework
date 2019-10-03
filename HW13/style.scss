@@ -1,0 +1,21 @@
+.prev, .next{
+    // width: 30px;
+    height: 30px;
+    background: red;
+    cursor: pointer;
+    float: left;
+}
+.next{
+    background: blue;
+}
+#container{
+    li {
+        display: none;
+        img {
+            width: 30%;
+        }
+        &.active{
+            display: block;
+        }
+    }
+}
