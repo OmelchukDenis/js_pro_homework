@@ -17,7 +17,7 @@ function onFormSubmit(e) {
 }
 
 function addNewTask() {
-    if (taskTitle.value.trim() !== '') {
+    if (taskTitle.value.trim() !== '' ) {
         toDoList.innerHTML += generateTask(taskTitle.value);
         clearInput();
         deleteClass(taskTitle, CLASS_ERROR);
