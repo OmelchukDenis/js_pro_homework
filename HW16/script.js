@@ -4,8 +4,6 @@ const prom = fetch('https://jsonplaceholder.typicode.com/photos?_limit=50');
 const imageParent = document.getElementById("body");
 const bigImgTest = document.getElementById("bigImg");
 const imageGalery = document.createElement('div');
-
-imageGalery.className = 'imageGalery';
 imageParent.addEventListener('click', openBigImg);
 bigImgTest.addEventListener('click', hideElement);
 
