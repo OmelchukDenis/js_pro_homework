@@ -20,7 +20,7 @@ function addNewUser() {
     if (userName.value.trim() !== '' && 
         userSurname.value.trim() !== '' && 
         userAge.value.trim() !== '') {
-        userList.innerHTML += generateList(userName.value, userSurname.value, userAge.value);
+        userList.innerHTML += generateRow(userName.value, userSurname.value, userAge.value);
         clearInput();
     } else {
         showError();
@@ -28,10 +28,10 @@ function addNewUser() {
 
 }
 
-function generateList(value1, value2, value3) {
-    return itemTemplate.replace('{{name}}', value1)
-                        .replace('{{surname}}', value2)
-                        .replace('{{age}}', value3)
+function generateRow(name, surname, age) {
+    return itemTemplate.replace('{{name}}', name)
+                        .replace('{{surname}}', surname)
+                        .replace('{{age}}', age)
 }
 
 function removeUser(e) {
@@ -42,12 +42,8 @@ function removeUser(e) {
 }
 
 function clearInput(){
-    userName.placeholder = '';
-    userSurname.placeholder = '';
-    userAge.placeholder = '';
-    userName.value = '';
-    userSurname.value = '';
-    userAge.value = '';
+    let c = document.getElementById('newUser')
+    c.reset();
 }
 
 function showError(){
