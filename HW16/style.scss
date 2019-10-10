@@ -1,0 +1,23 @@
+#imageBig {
+    background: rgba(0, 0, 0, .5);
+    position: absolute; left:0; right:0; top:0;
+    width: 100%;
+    height: 100%;
+    cursor: zoom-out;
+}
+#imageBig img {
+    display: block;
+    margin: 50px auto;
+}
+#imageBig.hidden {
+    display: none;
+}
+.imageGallery{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.item-image{
+    padding: 5px;
+    cursor: zoom-in;
+}
