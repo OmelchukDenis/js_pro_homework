@@ -6,10 +6,10 @@ const HIDE_ELEMENT_CLASS = 'hidden';
 const requestPhoto = fetch('https://jsonplaceholder.typicode.com/photos?_limit=50');
 const myGallery = document.getElementById('myGallery');
 const imageBig = document.getElementById('imageBig');
-const imageGallery = document.createElement('div');
-imageGallery.classList.add('imageGallery');
+const imagesContainer = document.createElement('div');
+imagesContainer.classList.add('imagesContainer');
 
-imageGallery.addEventListener('click', showBigImg);
+imagesContainer.addEventListener('click', showBigImg);
 imageBig.addEventListener('click', hideBigImg);
 
 requestPhoto.then((resp) => {
@@ -21,8 +21,8 @@ requestPhoto.then((resp) => {
 function createPhotoGallery(data){
     const imageTag = createImageElement();
     imageBig.appendChild(imageTag);
-    data.map(el => addImageInGallery(el.url, el.thumbnailUrl));
-    myGallery.appendChild(imageGallery);
+    data.forEach((el) => {addImageInGallery(el.url, el.thumbnailUrl)});
+    myGallery.appendChild(imagesContainer);
 }
 
 function addImageInGallery(urlBigImg, urlSmallImg){
@@ -30,7 +30,7 @@ function addImageInGallery(urlBigImg, urlSmallImg){
     image.className = ITEM_IMAGE_CLASS;
     image.src = urlSmallImg;
     image.setAttribute('data-bigimg', urlBigImg);
-    imageGallery.appendChild(image);
+    imagesContainer.appendChild(image);
 }
 
 function createImageElement(){
@@ -39,8 +39,9 @@ function createImageElement(){
 }
 
 function showBigImg(e){
+    const imgSelectorSrc = imageBig.querySelector('img');
     if(e.target.classList.contains(ITEM_IMAGE_CLASS)){
-        imageBig.querySelector('img').src = e.target.dataset.bigimg;
+        imgSelectorSrc.src = e.target.dataset.bigimg;
         imageBig.classList.remove(HIDE_ELEMENT_CLASS);
     }
 }
