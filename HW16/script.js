@@ -19,7 +19,7 @@ requestPhoto.then((resp) => {
 function createPhotoGallery(data){
     const imageTag = createImageElement();
     imageBig.appendChild(imageTag);
-    data.forEach((el) => {addImageInGallery(el.url, el.thumbnailUrl)});
+    data.forEach(el => addImageInGallery(el.url, el.thumbnailUrl));
     myGallery.appendChild(imagesContainer);
 }
 
