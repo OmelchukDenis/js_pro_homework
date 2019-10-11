@@ -13,9 +13,7 @@ imagesContainer.addEventListener('click', showBigImg);
 imageBig.addEventListener('click', hideBigImg);
 
 requestPhoto.then((resp) => {
-    resp.json().then((data) => {
-        createPhotoGallery(data);
-    })
+    resp.json().then(createPhotoGallery)
 });
 
 function createPhotoGallery(data){
