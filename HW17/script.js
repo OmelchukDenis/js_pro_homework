@@ -20,24 +20,24 @@ requestUsersList
     return showUsersList(data);
 })
 .then((firstUser) => {
-    showFirstUserInfo(firstUser)
+    showUserInfo(firstUser)
 })
 .catch(() => console.log('Error'))
 
-function showFirstUserInfo(firstUser){
-    fetch('https://jsonplaceholder.typicode.com/users/' + firstUser)
+function showUserInfo(user){
+    fetch('https://jsonplaceholder.typicode.com/users/' + user)
     .then((resp) => {
         return resp.json()
     })
     .then((data) => {
-        showUserInfo(data);
-        addActiveClass(usersListItems.firstChild);
+        addUserInfo(data);
     })
 }
 
 function showUsersList(data){
     data.forEach(el => addUserInList(el.name, el.id));
     usersList.appendChild(usersListItems);
+    addActiveClass(usersListItems.firstChild);
     return data[0].id
 }
 
@@ -49,7 +49,7 @@ function addUserInList(name, id){
     usersListItems.appendChild(userItem);
 }
 
-function showUserInfo(data){
+function addUserInfo(data){
     userInfo.innerHTML = userInfoTemplate.replace('{{username}}', data.username)
                                         .replace('{{name}}', data.name)
                                         .replace('{{email}}', data.email)
@@ -67,19 +67,14 @@ function showUserInfo(data){
 
 function onUserClick(e){
     if(e.target.classList.contains(ITEM_USER_CLASS)){
-        fetch('https://jsonplaceholder.typicode.com/users/' + e.target.dataset.userid).then((resp) => {
-            resp.json().then(showUserInfo);
-        });
+        showUserInfo(e.target.dataset.userid)
         deleteActiveClass();
         addActiveClass(e.target);
     }
 }
 
 function deleteActiveClass(){
-    usersList.querySelectorAll('li').forEach((el) => {
-        if(el.classList.contains(ITEM_ACTIVE_CLASS)){
-            el.classList.remove(ITEM_ACTIVE_CLASS)
-        }});
+    usersList.querySelector('.active').classList.remove(ITEM_ACTIVE_CLASS)
 }
 
 function addActiveClass(tag){
