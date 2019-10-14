@@ -1,6 +1,8 @@
 'use strict'
 
 const ITEM_USER_CLASS = 'userItem';
+const ITEM_ACTIVE_CLASS = 'active';
+
 
 const requestUsersList = fetch('https://jsonplaceholder.typicode.com/users');
 
@@ -18,6 +20,11 @@ requestUsersList
     return showUsersList(data);
 })
 .then((firstUser) => {
+    showFirstUserInfo(firstUser)
+})
+.catch(() => console.log('Error'))
+
+function showFirstUserInfo(firstUser){
     fetch('https://jsonplaceholder.typicode.com/users/' + firstUser)
     .then((resp) => {
         return resp.json()
@@ -26,8 +33,7 @@ requestUsersList
         showUserInfo(data);
         addActiveClass(usersListItems.firstChild);
     })
-})
-.catch(() => console.log('Error'))
+}
 
 function showUsersList(data){
     data.forEach(el => addUserInList(el.name, el.id));
@@ -70,9 +76,12 @@ function onUserClick(e){
 }
 
 function deleteActiveClass(){
-    usersList.querySelectorAll('li').forEach(el => el.classList.remove('active'));
+    usersList.querySelectorAll('li').forEach((el) => {
+        if(el.classList.contains(ITEM_ACTIVE_CLASS)){
+            el.classList.remove(ITEM_ACTIVE_CLASS)
+        }});
 }
 
 function addActiveClass(tag){
-    tag.classList.add('active');
+    tag.classList.add(ITEM_ACTIVE_CLASS);
 }
