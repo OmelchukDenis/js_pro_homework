@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <title>HW18</title>
+</head>
+<body>
+    <div id="usersBook">
+        <div id="usersList">
+        </div>
+        <div id="userInfo">
+        </div>
+    </div>
+
+    <script type="text/template" id='userListTemplate'>
+        <li class="userItem" data-userid="{{userid}}">{{name}}</li>
+    </script>
+
+    <script type="text/template" id='userInfoTemplate'>
+        <!-- <form action="" method="" id="userForm"> -->
+                <!-- <h2>{{name}}</h2> -->
+            <input type="text" id="name" value="{{name2}}">
+            <input type="text" id="username" value="{{username}}">
+            <input type="text" id="email" value="{{email}}">
+            <input type="text" id="phone" value="{{phone}}">
+            <input type="text" id="website" value="{{website}}">
+            <button id="deleteUser" class="deleteUser" data-userid="{{userid}}">Delete</button>
+            <button id="onAddNewUser" class="onAddNewUser">Add</button>
+        <!-- </form> -->
+    </script>
+</body>
+</html>
