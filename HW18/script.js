@@ -56,7 +56,6 @@ function renderUsersList(data){
     usersListItems.prepend(createNewUser);
     usersList.appendChild(usersListItems);
     addActiveClass(usersListItems.firstElementChild);
-    return data[0].id
 }
 
 function addUserInList(name, id){
