@@ -5,18 +5,10 @@ const RESOURCE_URL = 'https://jsonplaceholder.typicode.com/users/';
 const ITEM_USER_CLASS = 'userItem';
 const ITEM_ACTIVE_CLASS = 'active';
 const DELETE_USER_BUTTON_CLASS = 'deleteUser';
-const ADD_USER_BUTTON_CLASS = 'onAddNewUser';
+const ADD_USER_BUTTON_CLASS = 'addNewUser';
 
 const METHOD_POST = 'POST';
 const METHOD_DELETE = 'DELETE';
-
-let EMPTY_DATA = {
-    name: '',
-    username: '',
-    email: '',
-    phone: '',
-    website: ''
-};
 
 const nameInput = document.getElementById('name');
 const usernameInput = document.getElementById('username');
@@ -46,8 +38,8 @@ requestUsersList.then((resp) => {
     return resp.json()
 })
 .then((data) => {
-    renderUserInfo(EMPTY_DATA, true);
     renderUsersList(data);
+    showControlBtn();
 })
 .catch(() => console.log('Error'))
 
@@ -56,6 +48,7 @@ function renderUsersList(data){
     usersListItems.prepend(createNewUser);
     usersList.appendChild(usersListItems);
     addActiveClass(usersListItems.firstElementChild);
+    showControlBtn();
 }
 
 function addUserInList(name, id){
@@ -63,23 +56,23 @@ function addUserInList(name, id){
                                                 .replace('{{userid}}', id);
 }
 
-function renderUserInfo(data, newuser){
+function renderUserInfo(data){
     nameInput.value = data.name;
     usernameInput.value = data.username;
     emailInput.value = data.email;
     phoneInput.value = data.phone;
-    websiteInput.value = data.website;
-    showControlBtn(newuser, data.id)             
+    websiteInput.value = data.website;            
+    deleteUserBtn.setAttribute('data-userId', data.id);
 }
 
-function showControlBtn(newuser, id){
-    if(newuser){
+function showControlBtn(){
+    if(usersList.firstElementChild.firstChild.classList.contains(ITEM_ACTIVE_CLASS)){
         addUserBtn.classList.remove('d-none');
         deleteUserBtn.classList.add('d-none');
-    } else {
-        addUserBtn.classList.add('d-none');
+    }
+    else{
         deleteUserBtn.classList.remove('d-none');
-        deleteUserBtn.setAttribute('data-userId', id);
+        addUserBtn.classList.add('d-none');
     }
 }
 
@@ -88,11 +81,13 @@ function onUserClick(e){
         showUserInfo(e.target.dataset.userid)
         deleteActiveClass();
         addActiveClass(e.target);
-    } else {
-        renderUserInfo(EMPTY_DATA, true);
         resetUserForm();
+        showControlBtn();
+    } else {
         deleteActiveClass();
         addActiveClass(e.target);
+        resetUserForm();
+        showControlBtn();
     }
 }
 
@@ -102,7 +97,7 @@ function showUserInfo(user){
         return resp.json()
     })
     .then((data) => {
-        renderUserInfo(data, false);
+        renderUserInfo(data);
     })
 }
 
@@ -122,7 +117,8 @@ function deleteUser(method, userid){
     }).then(() => {
         usersList.querySelector('.active').remove();
         addActiveClass(usersListItems.firstElementChild);
-        renderUserInfo(EMPTY_DATA, true);
+        resetUserForm();
+        showControlBtn();
     });
 }
 

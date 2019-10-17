@@ -53,6 +53,6 @@
   padding-right: 20px;
 }
 
-.onAddNewUser.d-none, .deleteUser.d-none {
+.addNewUser.d-none, .deleteUser.d-none {
   display: none;
 }
