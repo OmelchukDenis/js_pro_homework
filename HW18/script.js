@@ -1,12 +1,6 @@
 'use strict'
 
-let empty = {
-    name: '',
-    username: '',
-    email: '',
-    phone: '',
-    website: ''
-};
+const RESOURCE_URL = 'https://jsonplaceholder.typicode.com/users/';
 
 const ITEM_USER_CLASS = 'userItem';
 const ITEM_ACTIVE_CLASS = 'active';
@@ -16,47 +10,50 @@ const ADD_USER_BUTTON_CLASS = 'onAddNewUser';
 const METHOD_POST = 'POST';
 const METHOD_DELETE = 'DELETE';
 
+let EMPTY_DATA = {
+    name: '',
+    username: '',
+    email: '',
+    phone: '',
+    website: ''
+};
 
-const requestUsersList = fetch('https://jsonplaceholder.typicode.com/users');
+const nameInput = document.getElementById('name');
+const usernameInput = document.getElementById('username');
+const emailInput = document.getElementById('email');
+const phoneInput = document.getElementById('phone');
+const websiteInput = document.getElementById('website');
+const deleteUserBtn = document.getElementById(DELETE_USER_BUTTON_CLASS);
+const addUserBtn = document.getElementById(ADD_USER_BUTTON_CLASS);
 
-const userInfoTemplate = document.getElementById('userInfoTemplate').innerHTML;
 const userListTemplate = document.getElementById('userListTemplate').innerHTML;
+const usersListItems = document.createElement('ul');
+
+const createNewUser = document.createElement('li');
+createNewUser.classList.add('createNewUser');
+createNewUser.innerText = 'Create new user'
 
 const usersList = document.getElementById('usersList');
 const userInfo = document.getElementById('userInfo');
-
-const usersListItems = document.createElement('ul');
-const addNewUser = document.createElement('li');
-addNewUser.classList.add('addNewUser');
-addNewUser.innerText = 'Add new user'
-
 usersList.addEventListener('click', onUserClick);
-userInfo.addEventListener('click', onDeleteClick)
 
+const userForm = document.getElementById('userForm');
+userForm.addEventListener('click', onControlBtnClick)
 
-requestUsersList
-.then((resp) => {
+const requestUsersList = fetch(RESOURCE_URL);
+
+requestUsersList.then((resp) => {
     return resp.json()
 })
 .then((data) => {
-    addUserInfo(empty, true);
-    return showUsersList(data);
+    renderUserInfo(EMPTY_DATA, true);
+    renderUsersList(data);
 })
 .catch(() => console.log('Error'))
 
-function showUserInfo(user){
-    fetch('https://jsonplaceholder.typicode.com/users/' + user)
-    .then((resp) => {
-        return resp.json()
-    })
-    .then((data) => {
-        addUserInfo(data, false);
-    })
-}
-
-function showUsersList(data){
+function renderUsersList(data){
     data.forEach(el => addUserInList(el.name, el.id));
-    usersListItems.prepend(addNewUser);
+    usersListItems.prepend(createNewUser);
     usersList.appendChild(usersListItems);
     addActiveClass(usersListItems.firstElementChild);
     return data[0].id
@@ -67,19 +64,24 @@ function addUserInList(name, id){
                                                 .replace('{{userid}}', id);
 }
 
-function addUserInfo(data, newuser){
-    userInfo.innerHTML = userInfoTemplate.replace('{{username}}', data.username)
-                                        .replace('{{name2}}', data.name)
-                                        .replace('{{email}}', data.email)
-                                        .replace('{{phone}}', data.phone)
-                                        .replace('{{website}}', data.website)
-                                        .replace('{{userid}}', data.id);
+function renderUserInfo(data, newuser){
+    nameInput.value = data.name;
+    usernameInput.value = data.username;
+    emailInput.value = data.email;
+    phoneInput.value = data.phone;
+    websiteInput.value = data.website;
+    showControlBtn(newuser, data.id)             
+}
+
+function showControlBtn(newuser, id){
     if(newuser){
-        document.getElementById(DELETE_USER_BUTTON_CLASS).remove();
+        addUserBtn.classList.remove('d-none');
+        deleteUserBtn.classList.add('d-none');
     } else {
-        document.getElementById(ADD_USER_BUTTON_CLASS).remove();
+        addUserBtn.classList.add('d-none');
+        deleteUserBtn.classList.remove('d-none');
+        deleteUserBtn.setAttribute('data-userId', id);
     }
-                                        
 }
 
 function onUserClick(e){
@@ -88,10 +90,63 @@ function onUserClick(e){
         deleteActiveClass();
         addActiveClass(e.target);
     } else {
-        addUserInfo(empty, true);
+        renderUserInfo(EMPTY_DATA, true);
+        resetUserForm();
         deleteActiveClass();
         addActiveClass(e.target);
     }
+}
+
+function showUserInfo(user){
+    fetch(RESOURCE_URL + user)
+    .then((resp) => {
+        return resp.json()
+    })
+    .then((data) => {
+        renderUserInfo(data, false);
+    })
+}
+
+function onControlBtnClick(e){
+    e.preventDefault();
+    if(e.target.classList.contains(DELETE_USER_BUTTON_CLASS)){
+        deleteUser(METHOD_DELETE, e.target.dataset.userid)
+    } 
+    else if(e.target.classList.contains(ADD_USER_BUTTON_CLASS)){
+        addNewUser(METHOD_POST)
+    }
+}
+
+function deleteUser(method, userid){
+    fetch(RESOURCE_URL + userid, {
+        method: method
+    }).then(() => {
+        usersList.querySelector('.active').remove();
+        addActiveClass(usersListItems.firstElementChild);
+        renderUserInfo(EMPTY_DATA, true);
+    });
+}
+
+function addNewUser(method){
+    let newUserInfo = {
+        name: nameInput.value,
+        username: usernameInput.value,
+        email: emailInput.value,
+        phone: phoneInput.value,
+        website: websiteInput.value
+    };
+
+    fetch(RESOURCE_URL, {
+        method: method,
+        body: JSON.stringify(newUserInfo)
+    })
+    .then((resp) => {
+        return resp.json()
+    })
+    .then((data) => {
+        resetUserForm();
+        addUserInList(newUserInfo.username, data.id)
+    })
 }
 
 function deleteActiveClass(){
@@ -102,43 +157,6 @@ function addActiveClass(el){
     el.classList.add(ITEM_ACTIVE_CLASS);
 }
 
-function onDeleteClick(e){
-    if(e.target.classList.contains(DELETE_USER_BUTTON_CLASS)){
-        deleteUser(e.target.dataset.userid, METHOD_DELETE)
-    } 
-    else if(e.target.classList.contains(ADD_USER_BUTTON_CLASS)){
-        onAddNewUserClick()
-    }
-}
-
-function deleteUser(userid, method){
-    fetch('https://jsonplaceholder.typicode.com/users/' + userid, {
-        method: method
-    }).then(() => {
-        addUserInfo(empty, true)
-        deleteActiveClass();
-        addActiveClass(usersListItems.firstElementChild);
-    });
-}
-
-function onAddNewUserClick(){
-    let newUserInfo = {
-        name: document.getElementById('name').value,
-        username: document.getElementById('username').value,
-        email: document.getElementById('email').value,
-        phone: document.getElementById('phone').value,
-        website: document.getElementById('website').value
-    };
-
-    fetch('https://jsonplaceholder.typicode.com/users', {
-        method: METHOD_POST,
-        body: JSON.stringify(newUserInfo)
-    })
-    .then((resp) => {
-        return resp.json()
-    })
-    .then((data) => {
-        addUserInfo(empty, true)
-        addUserInList(newUserInfo.username, data.id)
-    })
+function resetUserForm(){
+    userForm.reset();
 }

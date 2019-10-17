@@ -41,3 +41,9 @@
         }
     }
 }
+
+.onAddNewUser, .deleteUser {
+    &.d-none{
+        display: none;
+    }
+}

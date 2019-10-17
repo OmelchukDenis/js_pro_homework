@@ -13,24 +13,20 @@
         <div id="usersList">
         </div>
         <div id="userInfo">
+            <form id="userForm">
+                <input type="text" id="name">
+                <input type="text" id="username">
+                <input type="text" id="email">
+                <input type="text" id="phone">
+                <input type="text" id="website">
+                <button id="deleteUser" class="deleteUser">Delete</button>
+                <button id="onAddNewUser" class="onAddNewUser">Add</button>
+            </form>
         </div>
     </div>
 
     <script type="text/template" id='userListTemplate'>
         <li class="userItem" data-userid="{{userid}}">{{name}}</li>
-    </script>
-
-    <script type="text/template" id='userInfoTemplate'>
-        <!-- <form action="" method="" id="userForm"> -->
-                <!-- <h2>{{name}}</h2> -->
-            <input type="text" id="name" value="{{name2}}">
-            <input type="text" id="username" value="{{username}}">
-            <input type="text" id="email" value="{{email}}">
-            <input type="text" id="phone" value="{{phone}}">
-            <input type="text" id="website" value="{{website}}">
-            <button id="deleteUser" class="deleteUser" data-userid="{{userid}}">Delete</button>
-            <button id="onAddNewUser" class="onAddNewUser">Add</button>
-        <!-- </form> -->
     </script>
 </body>
 </html>
