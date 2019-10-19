@@ -4,6 +4,7 @@ const RESOURCE_URL = 'https://jsonplaceholder.typicode.com/users/';
 
 const ITEM_USER_CLASS = 'userItem';
 const ITEM_ACTIVE_CLASS = 'active';
+const BTN_DISPLAY_NONE = 'd-none';
 const DELETE_USER_BUTTON_CLASS = 'deleteUser';
 const ADD_USER_BUTTON_CLASS = 'addNewUser';
 
@@ -62,37 +63,34 @@ function renderUserInfo(data){
     emailInput.value = data.email;
     phoneInput.value = data.phone;
     websiteInput.value = data.website;            
-    deleteUserBtn.setAttribute('data-userId', data.id);
+    deleteUserBtn.dataset.userid = data.id;
+    showControlBtn();
 }
 
 function showControlBtn(){
-    if(usersList.firstElementChild.firstChild.classList.contains(ITEM_ACTIVE_CLASS)){
-        addUserBtn.classList.remove('d-none');
-        deleteUserBtn.classList.add('d-none');
-    }
-    else{
-        deleteUserBtn.classList.remove('d-none');
-        addUserBtn.classList.add('d-none');
+    if(deleteUserBtn.hasAttribute('data-userid')){
+        deleteUserBtn.classList.remove(BTN_DISPLAY_NONE);
+        addUserBtn.classList.add(BTN_DISPLAY_NONE);
+    }else{
+        addUserBtn.classList.remove(BTN_DISPLAY_NONE);
+        deleteUserBtn.classList.add(BTN_DISPLAY_NONE);
     }
 }
 
 function onUserClick(e){
     if(e.target.classList.contains(ITEM_USER_CLASS)){
-        showUserInfo(e.target.dataset.userid)
-        deleteActiveClass();
-        addActiveClass(e.target);
-        resetUserForm();
-        showControlBtn();
+        showUserInfo(e.target.dataset.userid);
     } else {
-        deleteActiveClass();
-        addActiveClass(e.target);
-        resetUserForm();
-        showControlBtn();
+        deleteUserBtn.removeAttribute('data-userid');
     }
+    deleteActiveClass();
+    addActiveClass(e.target);
+    resetUserForm();
+    showControlBtn();
 }
 
-function showUserInfo(user){
-    fetch(RESOURCE_URL + user)
+function showUserInfo(userId){
+    fetch(RESOURCE_URL + userId)
     .then((resp) => {
         return resp.json()
     })
@@ -104,19 +102,20 @@ function showUserInfo(user){
 function onControlBtnClick(e){
     e.preventDefault();
     if(e.target.classList.contains(DELETE_USER_BUTTON_CLASS)){
-        deleteUser(METHOD_DELETE, e.target.dataset.userid)
+        deleteUser(e.target.dataset.userid)
     } 
     else if(e.target.classList.contains(ADD_USER_BUTTON_CLASS)){
-        addNewUser(METHOD_POST)
+        addNewUser()
     }
 }
 
-function deleteUser(method, userid){
+function deleteUser(userid){
     fetch(RESOURCE_URL + userid, {
-        method: method
+        method: METHOD_DELETE
     }).then(() => {
-        usersList.querySelector('.active').remove();
+        usersList.querySelector('.'+ITEM_ACTIVE_CLASS).remove();
         addActiveClass(usersListItems.firstElementChild);
+        deleteUserBtn.removeAttribute('data-userid');
         resetUserForm();
         showControlBtn();
     });
@@ -132,7 +131,7 @@ function addNewUser(method){
     };
 
     fetch(RESOURCE_URL, {
-        method: method,
+        method: METHOD_POST,
         body: JSON.stringify(newUserInfo)
     })
     .then((resp) => {
@@ -145,7 +144,7 @@ function addNewUser(method){
 }
 
 function deleteActiveClass(){
-    usersList.querySelector('.active').classList.remove(ITEM_ACTIVE_CLASS)
+    usersList.querySelector('.'+ITEM_ACTIVE_CLASS).classList.remove(ITEM_ACTIVE_CLASS)
 }
 
 function addActiveClass(el){
