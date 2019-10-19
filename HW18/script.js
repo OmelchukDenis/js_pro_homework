@@ -7,6 +7,7 @@ const ITEM_ACTIVE_CLASS = 'active';
 const BTN_DISPLAY_NONE = 'd-none';
 const DELETE_USER_BUTTON_CLASS = 'deleteUser';
 const ADD_USER_BUTTON_CLASS = 'addNewUser';
+const USERID_ATTRIBUTE = 'data-userid';
 
 const METHOD_POST = 'POST';
 const METHOD_DELETE = 'DELETE';
@@ -68,7 +69,7 @@ function renderUserInfo(data){
 }
 
 function showControlBtn(){
-    if(deleteUserBtn.hasAttribute('data-userid')){
+    if(deleteUserBtn.hasAttribute(USERID_ATTRIBUTE)){
         deleteUserBtn.classList.remove(BTN_DISPLAY_NONE);
         addUserBtn.classList.add(BTN_DISPLAY_NONE);
     }else{
@@ -81,7 +82,7 @@ function onUserClick(e){
     if(e.target.classList.contains(ITEM_USER_CLASS)){
         showUserInfo(e.target.dataset.userid);
     } else {
-        deleteUserBtn.removeAttribute('data-userid');
+        deleteUserBtn.removeAttribute(USERID_ATTRIBUTE);
     }
     deleteActiveClass();
     addActiveClass(e.target);
@@ -115,7 +116,7 @@ function deleteUser(userid){
     }).then(() => {
         usersList.querySelector('.'+ITEM_ACTIVE_CLASS).remove();
         addActiveClass(usersListItems.firstElementChild);
-        deleteUserBtn.removeAttribute('data-userid');
+        deleteUserBtn.removeAttribute(USERID_ATTRIBUTE);
         resetUserForm();
         showControlBtn();
     });
