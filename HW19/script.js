@@ -5,17 +5,16 @@ const HIDE_ELEMENT_CLASS = 'hidden';
 const AMOUNT_PHOTOS_ON_PAGE = 100;
 const CURRENT_PAGE_NUMBER = 'currentPageNum';
 
-// const requestPhoto = fetch('https://jsonplaceholder.typicode.com/photos?_limit=200');
 const requestPhoto = fetch('https://jsonplaceholder.typicode.com/photos');
 const myGallery = document.getElementById('myGallery');
 const imageBig = document.getElementById('imageBig');
 const imagesContainer = document.createElement('div');
 const paginationContainer = document.getElementById('paginationContainer');
-paginationContainer.addEventListener('click', onPaginationItemClick)
 const paginationList = document.createElement('ul');
 const paginationListTemplate = document.getElementById('paginationListTemplate').innerHTML;
-imagesContainer.classList.add('imagesContainer');
 
+imagesContainer.classList.add('imagesContainer');
+paginationContainer.addEventListener('click', onPaginationItemClick)
 imagesContainer.addEventListener('click', showBigImg);
 imageBig.addEventListener('click', hideBigImg);
 
@@ -52,10 +51,10 @@ function getCurrentPageData(){
     let currentPageNum = checkLocalStorage();
     let currentPageData;
     if(currentPageNum == 1){
-        currentPageData = photosData.slice(currentPageNum - 1, currentPageNum + 99);
+        currentPageData = photosData.slice(currentPageNum - 1, currentPageNum + AMOUNT_PHOTOS_ON_PAGE -1 );
     } else {
-        currentPageNum = (currentPageNum - 1) * 100;
-        currentPageData = photosData.slice(currentPageNum, currentPageNum + 100);
+        currentPageNum = (currentPageNum - 1) * AMOUNT_PHOTOS_ON_PAGE;
+        currentPageData = photosData.slice(currentPageNum, currentPageNum + AMOUNT_PHOTOS_ON_PAGE);
     }
     return currentPageData;
 }
