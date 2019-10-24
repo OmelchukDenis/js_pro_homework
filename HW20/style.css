@@ -1,0 +1,26 @@
+.done {
+  background: red;
+}
+
+.stickerList {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.stickerList .deleteBtn {
+  cursor: pointer;
+  float: right;
+  opacity: .75;
+}
+
+.stickerList .deleteBtn:hover {
+  opacity: 1;
+}
+
+.stickerList .stickerItem {
+  margin: 10px;
+  width: 200px;
+  border: 1px solid rgba(0, 0, 150, 0.5);
+  border-radius: 10px;
+  padding: 5px;
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <form action="" id="newStickerForm">
+            <input type="text" id="newStickerTitle" placeholder="Title">
+            <button>Add</button>
+        </form>
+    </div>
+
+    <div id="stickerList" class="stickerList"></div>
+
+
+    <script type="text/template" id="stickerElementTemplate">
+        <div class="stickerItem {{isdone}}" data-sticker-id="{{id}}">
+            <input type="text" value="{{title}}" class="stickerTitle"> 
+            <span class="deleteBtn">X</span>
+            <textarea class="stickerDescription" name="" id="" cols="30" rows="6">{{description}}</textarea>
+        </div>
+    </script>
+</body>
+</html>
