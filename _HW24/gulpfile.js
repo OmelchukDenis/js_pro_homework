@@ -19,10 +19,17 @@ function sassTask(cb){
 }
 
 function injectTask(cb){
-    var target = src('./dist/index.html');
+    var target = src('./src/index.html');
     var sources = src(['./dist/**/*.js', './dist/**/*.css'], {read: false});
-
-    target.pipe(inject(sources))
+    
+    target.pipe(inject(sources, {
+        // relative: true
+        transform: function (filepath){
+            let newPath = filepath.replace('/dist/', '');
+            let extention = filepath.split('.')[1];
+            return extention == 'js' ? `<script src="${newPath}"></script>` : `<link rel="stylesheet" href="${newPath}"></link>`
+        }
+    }))
     .pipe(dest('./dist/'))
 
     cb();

@@ -5,7 +5,9 @@
   "main": "app.js",
   "scripts": {
     "test": "node app.js",
-    "start": "node app.js"
+    "start": "node app.js",
+    "build": "gulp concat && gulp sass && gulp inject",
+    "dev": "gulp concat && gulp sass && gulp inject"
   },
   "author": "Omelchuk Denis",
   "license": "MIT",
