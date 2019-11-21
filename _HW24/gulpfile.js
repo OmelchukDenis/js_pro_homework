@@ -21,7 +21,7 @@ function sassTask(cb){
 function injectTask(cb){
     var target = src('./src/index.html');
     var sources = src(['./dist/**/*.js', './dist/**/*.css'], {read: false});
-    
+
     target.pipe(inject(sources, {
         // relative: true
         transform: function (filepath){
@@ -35,7 +35,15 @@ function injectTask(cb){
     cb();
 }
 
+// function watchFiles(cb){
+//     watch('./src/index.html', series(concat, sass, inject));
+//     watch('./src/**/*.js', concat);
+//     watch('./src/assets/**/*.scss', sass);
+
+//     cb()
+// }
 
 module.exports.concat = concatTask;
 module.exports.sass = sassTask;
 module.exports.inject = injectTask;
+module.exports.watchFiles = watchFiles;
